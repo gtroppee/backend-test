@@ -1,7 +1,30 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+#### COMPANIES ####
+company = Company.create(
+  name: 'My Company'
+)
+
+#### USERS ####
+['Jane (CEO)', 'Peter (CTO)', 'Luke (COO)', 'Guillaume (YOLO)'].each do |name|
+  Company.create(
+    name: name,
+    company: company
+  )
+end
+
+#### PHONE NUMBERS ####
+
+## Companies
+PhoneNumber.create(
+  name: company.name,
+  callable_type: 'Company',
+  callable_id: company.id
+)
+
+## Users
+User.all.each do |user|
+  PhoneNumber.create(
+    name: "#{user} (#{user.phone_numbers.count})",
+    callable_type: 'User',
+    callable_id: user.id
+  )
+end
