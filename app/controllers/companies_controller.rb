@@ -1,8 +1,11 @@
 class CompaniesController < ApplicationController
 
   def index
-    @company = Company.includes(:users, :phone_numbers)
-                      .first
+    @username = "Caller151023165146"
+    @password = "materia"
+
+    @company_phone_numbers = PhoneNumber.where(callable_type: 'Company')
+    @users_phone_numbers = PhoneNumber.where(callable_type: 'User')
   end
 
 end
