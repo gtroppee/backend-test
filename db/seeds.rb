@@ -5,7 +5,7 @@ company = Company.create(
 
 #### USERS ####
 ['Jane (CEO)', 'Peter (CTO)', 'Luke (COO)', 'Guillaume (YOLO)'].each do |name|
-  Company.create(
+  User.create(
     name: name,
     company: company
   )
