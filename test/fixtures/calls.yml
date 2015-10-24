@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  starts_at: 2015-10-24 14:28:41
+  ends_at: 2015-10-24 14:28:41
+  answered_at: 2015-10-24 14:28:41
+  direction: MyString
+  duration: 1
+  status: MyString
+  uid: MyString
+  cost: 1.5
+  rate: 1.5
+  caller_sip: MyString
+  recipient_sip: MyString
+  caller_name: MyString
+  record_url: MyText
+  record_length: 1
+
+two:
+  starts_at: 2015-10-24 14:28:41
+  ends_at: 2015-10-24 14:28:41
+  answered_at: 2015-10-24 14:28:41
+  direction: MyString
+  duration: 1
+  status: MyString
+  uid: MyString
+  cost: 1.5
+  rate: 1.5
+  caller_sip: MyString
+  recipient_sip: MyString
+  caller_name: MyString
+  record_url: MyText
+  record_length: 1

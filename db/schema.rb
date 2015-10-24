@@ -11,7 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151023134046) do
+ActiveRecord::Schema.define(version: 20151024122841) do
+
+  create_table "calls", force: :cascade do |t|
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.datetime "answered_at"
+    t.string   "direction"
+    t.integer  "duration",      default: 0
+    t.string   "status"
+    t.string   "uid"
+    t.float    "cost",          default: 0.0
+    t.float    "rate"
+    t.string   "caller_sip"
+    t.string   "recipient_sip"
+    t.string   "caller_name"
+    t.text     "record_url"
+    t.integer  "record_length"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
 
   create_table "companies", force: :cascade do |t|
     t.string   "name"
@@ -19,12 +38,23 @@ ActiveRecord::Schema.define(version: 20151023134046) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "phone_number_assignments", force: :cascade do |t|
+    t.string   "callable_type",   null: false
+    t.integer  "callable_id",     null: false
+    t.integer  "phone_number_id"
+    t.integer  "priority",        null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "phone_number_assignments", ["callable_id"], name: "index_phone_number_assignments_on_callable_id"
+  add_index "phone_number_assignments", ["callable_type"], name: "index_phone_number_assignments_on_callable_type"
+  add_index "phone_number_assignments", ["phone_number_id"], name: "index_phone_number_assignments_on_phone_number_id"
+
   create_table "phone_numbers", force: :cascade do |t|
     t.string   "sip_endpoint"
-    t.string   "callable_type"
-    t.integer  "callable_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.string   "name"
   end
 

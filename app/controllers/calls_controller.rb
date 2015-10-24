@@ -6,11 +6,13 @@ class CallsController < ApplicationController
     render xml: response.to_xml
   end
 
-  def forward
-    
+  def voicemail
+    response = Caller.voicemail(params)
+    render xml: response.to_xml
   end
 
   def hangup
-    
+    response = Caller.hangup(params)
+    render xml: response.to_xml
   end
 end

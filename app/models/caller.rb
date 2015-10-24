@@ -2,74 +2,65 @@ class Caller
   include Plivo
 
   def self.dial(params)
-    to_number = params[:To]
-    from_number = params[:CLID] ? params[:CLID] : params[:From] ? params[:From] : ''
-    caller_name = params[:CallerName] ? params[:CallerName] : ''
+    CallLogger.add(params)
+    
+    recipient_sip = params[:To]
+    recipient = User.find_by_sip
+    response = Response.new
 
-    resp = Response.new
-
-    if !to_number
-      resp.addHangup()
+    if !recipient_sip
+      response.addHangup
     else
-      d = resp.addDial({'callerName' => caller_name})
-      d.addUser(to_number)
+      response.addSpeak('Thanks for calling acme, you will be routed to voicemail in 15 seconds if he does not answer!')
+      dial = response.addDial({ 
+        'callerName' => caller_name,
+        'action' => 'https://983a260e.ngrok.io/calls/voicemail', 
+        'method' => 'POST', 
+        'timeout' => '15' 
+      })
+      dial.addUser(recipient_sip)
     end
 
-    resp
+    response
+  end
+
+  def self.voicemail(params)
+    response = Response.new
+
+    if params[:CallStatus] != 'completed'
+      response.addSpeak('Please leave a message and press any key when done.')
+      response.addRecord({
+        'action' => 'https://983a260e.ngrok.io/calls/hangup',
+        'method' => 'POST', 
+        'maxLength' => '5',
+        'playBeep' => 'true'
+      }) 
+      response.addHangup
+    else
+      response.addHangup
+    end
+
+    response
   end
 
   def self.forward(params)
-    # Generate a Dial XML to forward an incoming call.
-
-    # The phone number of the person calling your Plivo number,
-    # we'll use this as the Caller ID when we forward the call.
-    from_number = params[:From]
-
-    # The number you would like to forward the call to.
-    forwarding_number = "2222222222"
-
-    # The phone number to be used as the caller id.
-    # It can be set to the from_number or any custom number.
-    params = { 'callerId' => from_number }
-
-    response = Response.new()
-    dial = response.addDial(params)
-    dial.addNumber(forwarding_number)
+    next_in_queue = CallDispatcher.next_sip_endpoint(params)
+    
+    if next_in_queue
+      params = {
+        :To         => next_in_queue,
+        :From       => params[:From],
+        :CallerName => params[:CallerName],
+      }
+      dial(params)
+    else
+      voicemail(params)
+    end
 
     response
   end
 
   def self.hangup(params)
-    if params[:Duration].to_i.zero?
-      forward(params)
-    else
-      log(params)
-    end
-  end
-
-  def self.voicemail(params)
-    if params[:Duration].to_i.zero?
-      forward(params)
-    else
-      log(params)
-    end
-  end
-
-  private
-    def self.log(params)
-      create(
-        starts_at:    params[:StartTime],
-        ends_at:      params[:EndTime],
-        answered_at:  params[:AnswerTime],
-        direction:    params[:Direction],
-        duration:     params[:Duration],
-        status:       params[:CallStatus],
-        uid:          params[:CallUUID],
-        cost:         params[:TotalCost],
-        rate:         params[:BillRate],
-        from_sip:     params[:From],
-        to_sip:       params['SIP-H-To'],
-        caller_name:  params[:CallerName]
-      )
+    CallLogger.add(params)
   end
 end
