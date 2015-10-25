@@ -1,9 +1,9 @@
 class Call < ActiveRecord::Base
   has_many :forwardings
-  has_many :users, through: :forwardings
+  has_many :phone_number_assignments, through: :forwardings
 
-  def register_forwarding_to(user)
-    forwardings.create(user_id: user.id)
+  def register_forwarding_to(phone_number_assignment)
+    forwardings.create(phone_number_assignment_id: phone_number_assignment.id)
   end
 
   def self.log(params)
@@ -11,7 +11,8 @@ class Call < ActiveRecord::Base
       mapping.has_key?(key) && !val.blank?
     end
 
-    call = find_by(uid: params[:CallUUID]) || new(original_recipient_sip: params[:To])
+    call = find_by(uid: params[:CallUUID]) || 
+           new(original_recipient_sip: params[:To])
 
     attribs.each do |key, val|
       mapped_key = mapping[key]

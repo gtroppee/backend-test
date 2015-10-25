@@ -12,9 +12,9 @@ class Caller
     current_user = dispatcher.current_user
     next_user = dispatcher.next_user
     action = if next_user
-      "https://983a260e.ngrok.io/calls/dial?To=#{next_user.personal_sip}"
+      "#{ENV['HOST']}/calls/dial?To=#{next_user.personal_sip}"
     else
-      'https://983a260e.ngrok.io/calls/voicemail'
+      "#{ENV['HOST']}/calls/voicemail"
     end
 
     if !recipient_sip
@@ -40,7 +40,7 @@ class Caller
     if params[:CallStatus] != 'completed'
       response.addSpeak('No one could answer the phone. Please leave a message and press any key when done.')
       response.addRecord({
-        action: 'https://983a260e.ngrok.io/calls/hangup',
+        action: "#{ENV['HOST']}/calls/hangup",
         method: 'POST', 
         maxLength: '5',
         playBeep: 'true'

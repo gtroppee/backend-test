@@ -15,10 +15,10 @@ class CallDispatcher
   # private
     def users_tree
       number = PhoneNumber.find_by(sip_endpoint: @call.original_recipient_sip)
-      number.users.where.not(id: forwarded_user_ids)
+      number.phone_number_assignments.where.not(id: forwarded_phone_number_assignment_ids)
     end
 
-    def forwarded_user_ids
-      @call.user_ids
+    def forwarded_phone_number_assignment_ids
+      @call.phone_number_assignment_ids
     end
 end
