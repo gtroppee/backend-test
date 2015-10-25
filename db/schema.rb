@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20151024140803) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "calls", force: :cascade do |t|
     t.datetime "starts_at"
     t.datetime "ends_at"
@@ -45,8 +48,8 @@ ActiveRecord::Schema.define(version: 20151024140803) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "forwardings", ["call_id"], name: "index_forwardings_on_call_id"
-  add_index "forwardings", ["user_id"], name: "index_forwardings_on_user_id"
+  add_index "forwardings", ["call_id"], name: "index_forwardings_on_call_id", using: :btree
+  add_index "forwardings", ["user_id"], name: "index_forwardings_on_user_id", using: :btree
 
   create_table "phone_number_assignments", force: :cascade do |t|
     t.string   "callable_type",   null: false
@@ -57,9 +60,9 @@ ActiveRecord::Schema.define(version: 20151024140803) do
     t.datetime "updated_at",      null: false
   end
 
-  add_index "phone_number_assignments", ["callable_id"], name: "index_phone_number_assignments_on_callable_id"
-  add_index "phone_number_assignments", ["callable_type"], name: "index_phone_number_assignments_on_callable_type"
-  add_index "phone_number_assignments", ["phone_number_id"], name: "index_phone_number_assignments_on_phone_number_id"
+  add_index "phone_number_assignments", ["callable_id"], name: "index_phone_number_assignments_on_callable_id", using: :btree
+  add_index "phone_number_assignments", ["callable_type"], name: "index_phone_number_assignments_on_callable_type", using: :btree
+  add_index "phone_number_assignments", ["phone_number_id"], name: "index_phone_number_assignments_on_phone_number_id", using: :btree
 
   create_table "phone_numbers", force: :cascade do |t|
     t.string   "sip_endpoint"
@@ -75,6 +78,10 @@ ActiveRecord::Schema.define(version: 20151024140803) do
     t.integer  "company_id"
   end
 
-  add_index "users", ["company_id"], name: "index_users_on_company_id"
+  add_index "users", ["company_id"], name: "index_users_on_company_id", using: :btree
 
+  add_foreign_key "forwardings", "calls"
+  add_foreign_key "forwardings", "users"
+  add_foreign_key "phone_number_assignments", "phone_numbers"
+  add_foreign_key "users", "companies"
 end
