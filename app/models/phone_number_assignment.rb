@@ -7,7 +7,7 @@ class PhoneNumberAssignment < ActiveRecord::Base
 
   private
     def set_priority
-      p = class.where(callable_type: 'User', phone_number: phone_number)
+      p = PhoneNumberAssignment.where(callable_type: 'User', phone_number: phone_number)
       self.priority = p.count + 1
     end
 end

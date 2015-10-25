@@ -1,5 +1,10 @@
 class CallsController < ApplicationController
-  skip_before_filter :verify_authenticity_token
+  skip_before_filter :verify_authenticity_token, except: :index
+
+  def index
+    @calls = Call.includes(:users)
+                 .order(id: :desc)
+  end
 
   def dial
     response = Caller.dial(params)
@@ -12,7 +17,7 @@ class CallsController < ApplicationController
   end
 
   def hangup
-    response = Caller.hangup(params)
-    render xml: response.to_xml
+    Caller.hangup(params)
+    render json: {}, status: 200
   end
 end
