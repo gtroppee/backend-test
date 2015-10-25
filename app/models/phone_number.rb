@@ -1,10 +1,10 @@
 class PhoneNumber < ActiveRecord::Base
   has_many :phone_number_assignments, dependent: :destroy
 
-  has_many :users, through: :phone_number_assignments,
+  has_many :users, -> { order 'phone_number_assignments ASC' },
+                   through: :phone_number_assignments,
                    source: :callable,
-                   source_type: 'User',
-                   order: "phone_number_assignments.priority ASC"
+                   source_type: 'User'
 
   has_many :companies, through: :phone_number_assignments,
                        source: :callable,
