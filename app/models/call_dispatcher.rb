@@ -18,7 +18,6 @@ class CallDispatcher
                           .find_by(sip_endpoint: @call.recipient_sip)
       number.users.where.not(id: forwarded_user_ids)
                   .joins(:phone_number_assignments)
-                  .order('phone_number_assignments.priority ASC')
                   .distinct
     end
 
