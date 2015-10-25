@@ -11,7 +11,7 @@ class Call < ActiveRecord::Base
       mapping.has_key?(key) && !val.blank?
     end
 
-    call = find_by(uid: params[:CallUUID]) || new
+    call = find_by(uid: params[:CallUUID]) || new(original_recipient_sip: params[:To])
 
     attribs.each do |key, val|
       mapped_key = mapping[key]

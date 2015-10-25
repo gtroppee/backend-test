@@ -41,7 +41,7 @@ sales_number = PhoneNumber.create(
 support_number = PhoneNumber.create(
   name: 'Support',     
   sip_endpoint: 'sip:Support151023164303@phone.plivo.com', 
-  users: [peter, luke], 
+  users: [peter, luke],
   companies: [company]
 )
 
@@ -65,19 +65,3 @@ luke_number = PhoneNumber.create(
 )
 
 puts PhoneNumberAssignment.all.map(&:priority).inspect
-
-#### PHONE NUMBER ASSIGNMENTS ####
-
-## Companies
-# main_number.phone_number_assignments.create(
-#   sip_endpoint: 'Office151023164246',
-#   callables: [jane, peter, luke]
-# )
-
-# PhoneNumber.create(name: 'Sales',       sip_endpoint: 'Sales151023164212')
-# PhoneNumber.create(name: 'Support',     sip_endpoint: 'Support151023164303')
-
-# ## Users
-# PhoneNumber.create(name: 'Jane', sip_endpoint: 'Jane151023163619')
-# PhoneNumber.create(name: 'Peter', sip_endpoint: 'Peter151023163804')
-# PhoneNumber.create(name: 'Luke', sip_endpoint: 'Luke151023163814')

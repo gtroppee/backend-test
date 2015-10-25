@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151024140803) do
+ActiveRecord::Schema.define(version: 20151025204252) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,18 +21,19 @@ ActiveRecord::Schema.define(version: 20151024140803) do
     t.datetime "ends_at"
     t.datetime "answered_at"
     t.string   "direction"
-    t.integer  "duration",      default: 0
+    t.integer  "duration",               default: 0
     t.string   "status"
     t.string   "uid"
-    t.float    "cost",          default: 0.0
+    t.float    "cost",                   default: 0.0
     t.float    "rate"
     t.string   "caller_sip"
     t.string   "recipient_sip"
     t.string   "caller_name"
     t.text     "record_url"
     t.integer  "record_length"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.string   "original_recipient_sip"
   end
 
   create_table "companies", force: :cascade do |t|

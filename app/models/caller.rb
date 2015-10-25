@@ -11,27 +11,23 @@ class Caller
 
     current_user = dispatcher.current_user
     next_user = dispatcher.next_user
+    action = if next_user
+      "https://983a260e.ngrok.io/calls/dial?To=#{next_user.personal_sip}"
+    else
+      'https://983a260e.ngrok.io/calls/voicemail'
+    end
 
     if !recipient_sip
       response.addHangup
-    elsif next_user
-      response.addSpeak("You are trying to reach #{current_user}")
-      dial = response.addDial({ 
-        callerName: caller_name,
-        action: "https://983a260e.ngrok.io/calls/dial?To=#{next_user.personal_sip}", 
-        method: 'POST',
-        timeout: '15'
-      })
-      dial.addUser(recipient_sip)
     else
       response.addSpeak("You are trying to reach #{current_user}")
       dial = response.addDial({ 
         callerName: caller_name,
-        action: 'https://983a260e.ngrok.io/calls/voicemail', 
-        method: 'POST', 
-        timeout: '15' 
+        action: action, 
+        method: 'POST',
+        timeout: '15'
       })
-      dial.addUser(recipient_sip)
+      dial.addUser(current_user.personal_sip)
     end
 
     call.register_forwarding_to(current_user)

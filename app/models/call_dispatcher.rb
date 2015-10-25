@@ -12,10 +12,9 @@ class CallDispatcher
     users_tree[0]
   end
 
-  private
+  # private
     def users_tree
-      number = PhoneNumber.includes(:phone_number_assignments, phone_number_assignments: :callable)
-                          .find_by(sip_endpoint: @call.recipient_sip)
+      number = PhoneNumber.find_by(sip_endpoint: @call.original_recipient_sip)
       number.users.where.not(id: forwarded_user_ids)
     end
 

@@ -21,7 +21,7 @@
         <td><%= format_time(call.starts_at) %></td>
         <td><%= format_time(call.ends_at) %></td>
         <td><%= "#{call.caller_name} (#{call.caller_sip})" %></td>
-        <td><%= call.recipient_sip %></td>
+        <td><%= call.original_recipient_sip %></td>
         <td><%= "#{call.duration} seconds" %></td>
         <td>
           <ol>
