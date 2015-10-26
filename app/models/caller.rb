@@ -42,7 +42,7 @@ class Caller
     # 5
     response.addSpeak("You are trying to reach #{current_number}")
     dial = response.addDial({ 
-      callerName: caller_name,
+      callerName: params[:CallerName],
       action: action, 
       method: 'POST',
       timeout: '15'
