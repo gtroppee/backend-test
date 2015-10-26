@@ -1,0 +1,4 @@
+development:
+  HOST: 'https://983a260e.ngrok.io'
+production:
+  HOST: 'https://aircall-be-challenge.herokuapp.com'
