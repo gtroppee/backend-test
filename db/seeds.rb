@@ -91,4 +91,3 @@ luke_desktop = PhoneNumber.create(
   type: 'UserPhoneNumber'
 )
 
-# puts PhoneNumberAssignment.all.map(&:priority).inspect
