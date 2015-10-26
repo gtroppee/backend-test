@@ -9,10 +9,10 @@ class Caller
     call = Call.log(params)
     dispatcher = CallDispatcher.new(call)
 
-    current_user = dispatcher.current_user
-    next_user = dispatcher.next_user
-    action = if next_user
-      "#{ENV['HOST']}/calls/dial?To=#{next_user.personal_sip}"
+    current_number = dispatcher.current_number
+    next_number = dispatcher.next_number
+    action = if next_number
+      "#{ENV['HOST']}/calls/dial?To=#{next_number.sip_endpoint}"
     else
       "#{ENV['HOST']}/calls/voicemail"
     end
@@ -20,17 +20,17 @@ class Caller
     if !recipient_sip
       response.addHangup
     else
-      response.addSpeak("You are trying to reach #{current_user}")
+      response.addSpeak("You are trying to reach #{current_number}")
       dial = response.addDial({ 
         callerName: caller_name,
         action: action, 
         method: 'POST',
         timeout: '15'
       })
-      dial.addUser(current_user.personal_sip)
+      dial.addUser(current_number.sip_endpoint)
     end
 
-    call.register_forwarding_to(current_user)
+    call.register_forwarding_to(current_number)
     response
   end
 
@@ -38,7 +38,7 @@ class Caller
     response = Response.new
 
     if params[:CallStatus] != 'completed'
-      response.addSpeak('No one could answer the phone. Please leave a message and press any key when done.')
+      response.addSpeak('No one could answer the phone. Please leave a message after the beep.')
       response.addRecord({
         action: "#{ENV['HOST']}/calls/hangup",
         method: 'POST', 

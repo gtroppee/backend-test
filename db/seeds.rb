@@ -28,40 +28,67 @@ main_number = PhoneNumber.create(
   name: 'Main Office', 
   sip_endpoint: 'sip:Office151023164246@phone.plivo.com', 
   users: [jane, peter, luke], 
-  companies: [company]
+  companies: [company],
+  type: 'CompanyPhoneNumber'
 )
 
 sales_number = PhoneNumber.create(
   name: 'Sales',       
   sip_endpoint: 'sip:Sales151023164212@phone.plivo.com', 
   users: [jane, luke], 
-  companies: [company]
+  companies: [company],
+  type: 'CompanyPhoneNumber'
 )
 
 support_number = PhoneNumber.create(
   name: 'Support',     
   sip_endpoint: 'sip:Support151023164303@phone.plivo.com', 
   users: [peter, luke],
-  companies: [company]
+  companies: [company],
+  type: 'CompanyPhoneNumber'
 )
 
 ## Users
-jane_number = PhoneNumber.create(
-  name: 'Jane', 
+jane_mobile = PhoneNumber.create(
+  name: 'Jane Mobile', 
   sip_endpoint: 'sip:Jane151023163619@phone.plivo.com',
-  users: [jane]
+  users: [jane],
+  type: 'UserPhoneNumber'
 )
 
-peter_number = PhoneNumber.create(
-  name: 'Peter', 
+jane_desktop = PhoneNumber.create(
+  name: 'Jane Desktop', 
+  sip_endpoint: 'sip:Jane151023163619@phone.plivo.com',
+  users: [jane],
+  type: 'UserPhoneNumber'
+)
+
+peter_mobile = PhoneNumber.create(
+  name: 'Peter Mobile', 
   sip_endpoint: 'sip:Peter151023163804@phone.plivo.com',
-  users: [peter]
+  users: [peter],
+  type: 'UserPhoneNumber'
 )
 
-luke_number = PhoneNumber.create(
-  name: 'Luke', 
+peter_desktop = PhoneNumber.create(
+  name: 'Peter Desktop', 
+  sip_endpoint: 'sip:Peter151023163804@phone.plivo.com',
+  users: [peter],
+  type: 'UserPhoneNumber'
+)
+
+luke_mobile = PhoneNumber.create(
+  name: 'Luke Mobile', 
   sip_endpoint: 'sip:Luke151023163814@phone.plivo.com',
-  users: [luke]
+  users: [luke],
+  type: 'UserPhoneNumber'
 )
 
-puts PhoneNumberAssignment.all.map(&:priority).inspect
+luke_desktop = PhoneNumber.create(
+  name: 'Luke Desktop', 
+  sip_endpoint: 'sip:Luke151023163814@phone.plivo.com',
+  users: [luke],
+  type: 'UserPhoneNumber'
+)
+
+# puts PhoneNumberAssignment.all.map(&:priority).inspect

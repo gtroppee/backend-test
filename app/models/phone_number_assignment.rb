@@ -5,8 +5,8 @@ class PhoneNumberAssignment < ActiveRecord::Base
 
   before_create :set_priority, if: Proc.new { |a| !a.priority }
 
-  has_many :forwardings
-  has_many :calls, through: :forwardings
+  delegate :sip_endpoint, to: :phone_number
+  delegate :to_s, to: :callable
 
   private
     def set_priority

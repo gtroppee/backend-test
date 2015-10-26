@@ -43,14 +43,14 @@ ActiveRecord::Schema.define(version: 20151025204252) do
   end
 
   create_table "forwardings", force: :cascade do |t|
-    t.integer  "phone_number_assignment_id"
+    t.integer  "phone_number_id"
     t.integer  "call_id"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   add_index "forwardings", ["call_id"], name: "index_forwardings_on_call_id", using: :btree
-  add_index "forwardings", ["phone_number_assignment_id"], name: "index_forwardings_on_phone_number_assignment_id", using: :btree
+  add_index "forwardings", ["phone_number_id"], name: "index_forwardings_on_phone_number_id", using: :btree
 
   create_table "phone_number_assignments", force: :cascade do |t|
     t.string   "callable_type",   null: false
@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(version: 20151025204252) do
 
   create_table "phone_numbers", force: :cascade do |t|
     t.string   "sip_endpoint"
+    t.string   "type"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.string   "name"
@@ -82,7 +83,7 @@ ActiveRecord::Schema.define(version: 20151025204252) do
   add_index "users", ["company_id"], name: "index_users_on_company_id", using: :btree
 
   add_foreign_key "forwardings", "calls"
-  add_foreign_key "forwardings", "phone_number_assignments"
+  add_foreign_key "forwardings", "phone_numbers"
   add_foreign_key "phone_number_assignments", "phone_numbers"
   add_foreign_key "users", "companies"
 end

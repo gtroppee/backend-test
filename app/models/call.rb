@@ -1,9 +1,9 @@
 class Call < ActiveRecord::Base
   has_many :forwardings
-  has_many :phone_number_assignments, through: :forwardings
+  has_many :phone_numbers, through: :forwardings
 
-  def register_forwarding_to(phone_number_assignment)
-    forwardings.create(phone_number_assignment_id: phone_number_assignment.id)
+  def register_forwarding_to(phone_number)
+    forwardings.create(phone_number: phone_number)
   end
 
   def self.log(params)

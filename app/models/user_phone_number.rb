@@ -1,0 +1,2 @@
+class UserPhoneNumber < PhoneNumber
+end

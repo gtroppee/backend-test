@@ -4,9 +4,10 @@ class CompaniesController < ApplicationController
     @username = "Caller151023165146"
     @password = "materia"
 
-    @company_phone_numbers = PhoneNumber.joins(:phone_number_assignments)
+    @company_phone_numbers = PhoneNumber.includes(:phone_number_assignments)
                                         .where(phone_number_assignments: { callable_type: 'Company' })
-    @users_phone_numbers = User.all.flat_map(&:personal_number)
+    @users_phone_numbers = PhoneNumber.includes(:phone_number_assignments)
+                                      .where(phone_number_assignments: { callable_type: 'User' })
   end
 
 end

@@ -1,0 +1,2 @@
+class CompanyPhoneNumber < PhoneNumber
+end
