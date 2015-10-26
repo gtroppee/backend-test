@@ -50,43 +50,43 @@ support_number = PhoneNumber.create(
 
 ## Users
 jane_mobile = PhoneNumber.create(
-  name: 'Jane Mobile', 
+  name: "Jane's Mobile", 
   sip_endpoint: 'sip:Jane151023163619@phone.plivo.com',
   users: [jane],
   type: 'UserPhoneNumber'
 )
 
 jane_desktop = PhoneNumber.create(
-  name: 'Jane Desktop', 
-  sip_endpoint: 'sip:Jane151023163619@phone.plivo.com',
+  name: "Jane's Desktop", 
+  sip_endpoint: 'sip:Jane151026131115@phone.plivo.com',
   users: [jane],
   type: 'UserPhoneNumber'
 )
 
 peter_mobile = PhoneNumber.create(
-  name: 'Peter Mobile', 
+  name: "Peter's Mobile", 
   sip_endpoint: 'sip:Peter151023163804@phone.plivo.com',
   users: [peter],
   type: 'UserPhoneNumber'
 )
 
 peter_desktop = PhoneNumber.create(
-  name: 'Peter Desktop', 
-  sip_endpoint: 'sip:Peter151023163804@phone.plivo.com',
+  name: "Peter's Desktop", 
+  sip_endpoint: 'sip:Peter151026131214@phone.plivo.com',
   users: [peter],
   type: 'UserPhoneNumber'
 )
 
 luke_mobile = PhoneNumber.create(
-  name: 'Luke Mobile', 
+  name: "Luke's Mobile", 
   sip_endpoint: 'sip:Luke151023163814@phone.plivo.com',
   users: [luke],
   type: 'UserPhoneNumber'
 )
 
 luke_desktop = PhoneNumber.create(
-  name: 'Luke Desktop', 
-  sip_endpoint: 'sip:Luke151023163814@phone.plivo.com',
+  name: "Luke's Desktop", 
+  sip_endpoint: 'sip:Luke151026131144@phone.plivo.com',
   users: [luke],
   type: 'UserPhoneNumber'
 )

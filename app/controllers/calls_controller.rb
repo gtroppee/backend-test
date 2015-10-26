@@ -2,8 +2,8 @@ class CallsController < ApplicationController
   skip_before_filter :verify_authenticity_token, except: :index
 
   def index
-    @calls = Call.includes(:users)
-                 .order(id: :desc)
+    @calls = Call.order(id: :desc)
+    fresh_when(@calls)
   end
 
   def dial

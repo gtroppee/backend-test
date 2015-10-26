@@ -20,13 +20,13 @@
         <td><%= call.id %></td>
         <td><%= format_time(call.starts_at) %></td>
         <td><%= format_time(call.ends_at) %></td>
-        <td><%= "#{call.caller_name} (#{call.caller_sip})" %></td>
+        <td><%= call.caller_sip %></td>
         <td><%= call.original_recipient_sip %></td>
         <td><%= "#{call.duration} seconds" %></td>
         <td>
           <ol>
-            <% call.users.each do |user| %>
-            <li><%= user %></li>
+            <% call.forwardings.each do |forwarding| %>
+            <li><%= forwarding %></li>
             <% end %>
           </ol>
         </td>

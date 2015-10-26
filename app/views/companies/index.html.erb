@@ -116,7 +116,7 @@
                 <input class="form-control" 
                        type="text" 
                        id="caller_name"
-                       value="Guillaume151023163828"
+                       value="Caller151023165146"
                        placeholder="Your Plivo username">
               </div>
                 
@@ -154,7 +154,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @users_phone_numbers.each do |number| %>
+        <% @phone_numbers.user.each do |number| %>
         <tr>
           <td><%= number %></td>
           <td>
@@ -182,7 +182,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @company_phone_numbers.each do |number| %>
+        <% @phone_numbers.company.each do |number| %>
         <tr>
           <td><%= number %></td>
           <td>

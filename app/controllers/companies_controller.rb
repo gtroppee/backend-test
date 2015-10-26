@@ -1,13 +1,6 @@
 class CompaniesController < ApplicationController
-
   def index
-    @username = "Caller151023165146"
-    @password = "materia"
-
-    @company_phone_numbers = PhoneNumber.includes(:phone_number_assignments)
-                                        .where(phone_number_assignments: { callable_type: 'Company' })
-    @users_phone_numbers = PhoneNumber.includes(:phone_number_assignments)
-                                      .where(phone_number_assignments: { callable_type: 'User' })
+    @phone_numbers = PhoneNumber.all
+    fresh_when(@phone_numbers)
   end
-
 end

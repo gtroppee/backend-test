@@ -6,7 +6,7 @@ class Caller
     caller_name   = params[:CallerName]
     response      = Response.new
 
-    call = Call.log(params)
+    call = CallLogger.log(params)
     dispatcher = CallDispatcher.new(call)
 
     current_number = dispatcher.current_number
@@ -30,7 +30,7 @@ class Caller
       dial.addUser(current_number.sip_endpoint)
     end
 
-    call.register_forwarding_to(current_number)
+    CallLogger.register_forwarding(call, current_number)
     response
   end
 
@@ -53,6 +53,6 @@ class Caller
   end
 
   def self.hangup(params)
-    Call.log(params)
+    CallLogger.log(params)
   end
 end

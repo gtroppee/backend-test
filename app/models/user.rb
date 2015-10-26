@@ -5,12 +5,4 @@ class User < ActiveRecord::Base
   def to_s
     name
   end
-
-  def personal_number
-    phone_numbers.find_by(name: name)
-  end
-
-  def personal_sip
-    personal_number.sip_endpoint
-  end
 end
