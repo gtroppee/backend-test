@@ -3,10 +3,11 @@ class PhoneNumberAssignment < ActiveRecord::Base
   belongs_to :callable, polymorphic: true, 
                         touch: true
 
-  before_create :set_priority, if: Proc.new { |a| !a.priority }
+  before_create :set_default_priority, if: Proc.new { |a| !a.priority }
 
   private
-    def set_priority
+    # Define the default priority for the assignment (always the lowest priority)
+    def set_default_priority
       assignees = PhoneNumberAssignment.where(
         callable_type: 'User', 
         phone_number: phone_number

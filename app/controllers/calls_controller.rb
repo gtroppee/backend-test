@@ -2,7 +2,8 @@ class CallsController < ApplicationController
   skip_before_filter :verify_authenticity_token, except: :index
 
   def index
-    @calls = Call.order(id: :desc)
+    @calls = Call.includes(:phone_numbers)
+                 .order(id: :desc)
     fresh_when(@calls)
   end
 
@@ -18,6 +19,6 @@ class CallsController < ApplicationController
 
   def hangup
     Caller.hangup(params)
-    render json: {}, status: 200
+    render nothing: true
   end
 end
