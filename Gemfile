@@ -1,11 +1,9 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
 gem 'uglifier', '>= 1.3.0'
 gem "figaro"
-
 gem 'plivo'
 gem 'bullet', '~> 4.14.7'
 group :development, :test do

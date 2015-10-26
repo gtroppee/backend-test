@@ -39,7 +39,7 @@ class CallDispatcher
       # 1 - we want the phone numbers of the users that can receive the requested number
       # 2 - we don't want the numbers the call has already been forwarded to
       # 3 - we want it sorted by priority
-      PhoneNumber.includes(:phone_number_assignments)
+      @tree ||= PhoneNumber.includes(:phone_number_assignments)
                  .where(
                     type: 'UserPhoneNumber',
                     phone_number_assignments: { 
